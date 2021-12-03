@@ -35,6 +35,7 @@ app.get("/api/v1/employees", async (req, res) => {
     const e = await EmployeeModel.find({})
     try{
         res.send(e)
+        res.status(200).send("OK")
     }catch(err){
         res.status(500).send(err)
     }
@@ -46,7 +47,7 @@ app.post('/api/v1/employees', async (req, res) => {
     try{
         await e.save();
         res.send(e);
-        res.status(200).send("Created successfully!")
+        res.status(201).send("Created!")
     }catch(err){
         res.status(500).send(err);
     }
@@ -59,6 +60,7 @@ app.get('/api/v1/employees/:Id', async (req, res) => {
     const e = await EmployeeModel.findById(eId)
     try{
         res.send(e);
+        res.status(200).send("OK")
     }catch(err){
         res.status(500).send(err);
     }
@@ -70,7 +72,7 @@ app.put('/api/v1/employees/:Id', async (req, res) => {
         await EmployeeModel.findByIdAndUpdate(req.params.Id, req.body)
         e = await EmployeeModel.save()
         res.send(e)
-        res.status(200).send("Updated successfully!")
+        res.status(200).send("OK")
     }catch(err){
         res.status(500).send(err)
     }
@@ -86,7 +88,7 @@ app.delete('/api/v1/employees/:Id', async (req, res) => {
             })
         }
         else{
-            return res.status(200).send("Deleted successfully!")
+            return res.status(204).send("No Content")
         }
 
     }catch(err){
